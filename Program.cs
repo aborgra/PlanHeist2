@@ -35,7 +35,7 @@ namespace HeistPart2 {
             var mac = new LockSpecialist () {
                 Name = "MMac",
                 SkillLevel = 40,
-                PercentageCut = 20,
+                PercentageCut = 85,
             };
 
             rolodex.Add (garrett);
@@ -132,6 +132,7 @@ namespace HeistPart2 {
             }
 
             List<IRobber> crew = new List<IRobber> ();
+            var totalCutPercentage = 100;
 
             while (true) {
 
@@ -143,14 +144,19 @@ namespace HeistPart2 {
                 } else {
                     foreach (var item in rolodex) {
                         if (int.Parse (chosenMember) == rolodex.IndexOf (item)) {
+
                             crew.Add (item);
+                            totalCutPercentage -= item.PercentageCut;
+                            Console.WriteLine ($"Cut left: {totalCutPercentage}");
                             rolodex.Remove (item);
                             break;
+
                         }
                     }
                     foreach (var item in rolodex) {
-                        Console.WriteLine ($"{rolodex.IndexOf(item)} {item.ToString()}");
-
+                        if (item.PercentageCut < totalCutPercentage) {
+                            Console.WriteLine ($"{rolodex.IndexOf(item)} {item.ToString()}");
+                        }
                     }
                 }
             }
