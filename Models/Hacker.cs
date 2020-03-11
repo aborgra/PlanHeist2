@@ -15,6 +15,10 @@ namespace HeistPart2 {
       }
     }
 
+    public override string ToString () {
+      return $"{Name} is a hacker, has a skill level of {SkillLevel} and wants a {PercentageCut}% cut.";
+    }
+
   }
 
 }
