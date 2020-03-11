@@ -10,31 +10,31 @@ namespace HeistPart2 {
 
             var garrett = new Muscle () {
                 Name = "MMuscle",
-                SkillLevel = 50,
+                SkillLevel = 100,
                 PercentageCut = 20,
             };
 
             var willy = new LockSpecialist () {
                 Name = "Pick",
-                SkillLevel = 35,
+                SkillLevel = 100,
                 PercentageCut = 30,
             };
 
             var kevin = new Hacker () {
                 Name = "Kith",
-                SkillLevel = 50,
+                SkillLevel = 100,
                 PercentageCut = 10,
             };
 
             var namita = new Hacker () {
                 Name = "Hack",
-                SkillLevel = 50,
+                SkillLevel = 100,
                 PercentageCut = 20,
             };
 
             var mac = new LockSpecialist () {
                 Name = "MMac",
-                SkillLevel = 40,
+                SkillLevel = 100,
                 PercentageCut = 85,
             };
 
@@ -115,6 +115,11 @@ namespace HeistPart2 {
             var securityGuardScore = rand.Next (0, 101);
             var cashOnHand = rand.Next (50000, 1000001);
 
+            targetBank.AlarmScore = alarmScore;
+            targetBank.CashOnHand = cashOnHand;
+            targetBank.VaultScore = vaultScore;
+            targetBank.SecurityGuardScore = securityGuardScore;
+
             bankScores.Add ("alarmScore", alarmScore);
             bankScores.Add ("vaultScore", vaultScore);
             bankScores.Add ("securityGuardScore", securityGuardScore);
@@ -132,7 +137,7 @@ namespace HeistPart2 {
             }
 
             List<IRobber> crew = new List<IRobber> ();
-            var totalCutPercentage = 100;
+            double totalCutPercentage = 100;
 
             while (true) {
 
@@ -163,6 +168,24 @@ namespace HeistPart2 {
             Console.WriteLine ("Your assembled crew:");
             foreach (var mem in crew) {
                 Console.WriteLine ($"{mem.ToString()}");
+            }
+
+            foreach (var crewMember in crew) {
+                crewMember.PerformSkill (targetBank);
+            }
+            double allCuts = 0;
+
+            if (targetBank.IsSecure == true) {
+                Console.WriteLine ("You failed the heist.");
+            } else {
+                Console.WriteLine ($"You did it!");
+                foreach (var member in crew) {
+                    var yourTake = (member.PercentageCut / 100) * targetBank.CashOnHand;
+                    allCuts += yourTake;
+                    Console.WriteLine ($"{member.Name}: your cut is ${yourTake.ToString("C")}.");
+                    Console.WriteLine ($"Remaining cut: {(targetBank.CashOnHand-allCuts).ToString("C")}");
+                }
+                Console.WriteLine ($"Leader's cut: {(targetBank.CashOnHand-allCuts).ToString("C")}");
             }
 
         }
