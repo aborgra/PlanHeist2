@@ -15,6 +15,10 @@ namespace HeistPart2 {
       }
     }
 
+    public override string ToString () {
+      return $"{Name} is the muscle, has a skill level of {SkillLevel} and wants a {PercentageCut}% cut.";
+    }
+
   }
 
 }

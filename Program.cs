@@ -9,31 +9,31 @@ namespace HeistPart2 {
             Bank targetBank = new Bank ();
 
             var garrett = new Muscle () {
-                Name = "Mr. Muscle",
+                Name = "MMuscle",
                 SkillLevel = 50,
                 PercentageCut = 20,
             };
 
             var willy = new LockSpecialist () {
-                Name = "Mr. Pick",
+                Name = "Pick",
                 SkillLevel = 35,
                 PercentageCut = 30,
             };
 
             var kevin = new Hacker () {
-                Name = "Mr. Kith",
+                Name = "Kith",
                 SkillLevel = 50,
                 PercentageCut = 10,
             };
 
             var namita = new Hacker () {
-                Name = "Ms. Hack",
+                Name = "Hack",
                 SkillLevel = 50,
                 PercentageCut = 20,
             };
 
             var mac = new LockSpecialist () {
-                Name = "Mr. Mac",
+                Name = "MMac",
                 SkillLevel = 40,
                 PercentageCut = 20,
             };
@@ -106,9 +106,7 @@ namespace HeistPart2 {
                 }
             }
             Console.WriteLine ($"Your crew has {rolodex.Count} members");
-            foreach (var crew in rolodex) {
-                Console.WriteLine ($"{crew.Name}");
-            }
+
             Dictionary<string, int> bankScores = new Dictionary<string, int> ();
 
             Random rand = new Random ();
@@ -128,6 +126,38 @@ namespace HeistPart2 {
 
             Console.WriteLine ($"Most secure:{mostSecure.Key} at {mostSecure.Value}");
             Console.WriteLine ($"Least secure: {leastSecure.Key} at {leastSecure.Value}");
+
+            foreach (var mem in rolodex) {
+                Console.WriteLine ($"{rolodex.IndexOf(mem)} {mem.ToString()}");
+            }
+
+            List<IRobber> crew = new List<IRobber> ();
+
+            while (true) {
+
+                Console.WriteLine ("Add member to crew?(Enter member #)");
+                var chosenMember = Console.ReadLine ();
+
+                if (chosenMember == "") {
+                    break;
+                } else {
+                    foreach (var item in rolodex) {
+                        if (int.Parse (chosenMember) == rolodex.IndexOf (item)) {
+                            crew.Add (item);
+                            rolodex.Remove (item);
+                            break;
+                        }
+                    }
+                    foreach (var item in rolodex) {
+                        Console.WriteLine ($"{rolodex.IndexOf(item)} {item.ToString()}");
+
+                    }
+                }
+            }
+            Console.WriteLine ("Your assembled crew:");
+            foreach (var mem in crew) {
+                Console.WriteLine ($"{mem.ToString()}");
+            }
 
         }
     }
