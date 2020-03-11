@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HeistPart2 {
     class Program {
         static void Main (string[] args) {
             var rolodex = new List<IRobber> ();
+            Bank targetBank = new Bank ();
 
             var garrett = new Muscle () {
                 Name = "Mr. Muscle",
@@ -104,6 +106,28 @@ namespace HeistPart2 {
                 }
             }
             Console.WriteLine ($"Your crew has {rolodex.Count} members");
+            foreach (var crew in rolodex) {
+                Console.WriteLine ($"{crew.Name}");
+            }
+            Dictionary<string, int> bankScores = new Dictionary<string, int> ();
+
+            Random rand = new Random ();
+            var alarmScore = rand.Next (0, 101);
+            var vaultScore = rand.Next (0, 101);
+            var securityGuardScore = rand.Next (0, 101);
+            var cashOnHand = rand.Next (50000, 1000001);
+
+            bankScores.Add ("alarmScore", alarmScore);
+            bankScores.Add ("vaultScore", vaultScore);
+            bankScores.Add ("securityGuardScore", securityGuardScore);
+
+            var orderedScores = bankScores.OrderBy (score => score.Value);
+
+            var mostSecure = orderedScores.Last ();
+            var leastSecure = orderedScores.First ();
+
+            Console.WriteLine ($"Most secure:{mostSecure.Key} at {mostSecure.Value}");
+            Console.WriteLine ($"Least secure: {leastSecure.Key} at {leastSecure.Value}");
 
         }
     }
