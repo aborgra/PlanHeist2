@@ -44,6 +44,9 @@ namespace HeistPart2 {
             rolodex.Add (mac);
             rolodex.Add (kevin);
 
+            int newCrewMemberSkillLevel;
+            double newCrewMemberPercentageCut;
+
             Console.WriteLine ($"Your crew has {rolodex.Count} members");
 
             while (true) {
@@ -62,12 +65,21 @@ namespace HeistPart2 {
                             Muscle newMuscle = new Muscle () {
                             Name = newCrewMemberName
                             };
-                            Console.WriteLine ("Enter crew member's skill level (1-100)");
-                            var newCrewMemberSkillLevel = Console.ReadLine ();
-                            newMuscle.SkillLevel = int.Parse (newCrewMemberSkillLevel);
+
+                            while (true) {
+                                Console.WriteLine ("Enter crew member's skill level (1-100)");
+                                try {
+
+                                    newCrewMemberSkillLevel = int.Parse (Console.ReadLine ());
+                                    break;
+                                } catch (System.FormatException) {
+                                    Console.WriteLine ("Please enter a number (1-100)");
+                                }
+                            };
+                            newMuscle.SkillLevel = newCrewMemberSkillLevel;
                             Console.WriteLine ("Enter crew member's percentage cut (1-100)");
-                            var newCrewMemberPercentageCut = Console.ReadLine ();
-                            newMuscle.PercentageCut = int.Parse (newCrewMemberPercentageCut);
+                            newCrewMemberPercentageCut = double.Parse (Console.ReadLine ());
+                            newMuscle.PercentageCut = newCrewMemberPercentageCut;
                             rolodex.Add (newMuscle);
                             break;
 
@@ -76,11 +88,11 @@ namespace HeistPart2 {
                             Name = newCrewMemberName
                             };
                             Console.WriteLine ("Enter crew member's skill level (1-100)");
-                            var newCrewMemberSkillLevel = Console.ReadLine ();
-                            newHacker.SkillLevel = int.Parse (newCrewMemberSkillLevel);
+                            newCrewMemberSkillLevel = int.Parse (Console.ReadLine ());
+                            newHacker.SkillLevel = newCrewMemberSkillLevel;
                             Console.WriteLine ("Enter crew member's percentage cut (1-100)");
-                            var newCrewMemberPercentageCut = Console.ReadLine ();
-                            newHacker.PercentageCut = int.Parse (newCrewMemberPercentageCut);
+                            newCrewMemberPercentageCut = double.Parse (Console.ReadLine ());
+                            newHacker.PercentageCut = newCrewMemberPercentageCut;
                             rolodex.Add (newHacker);
                             break;
 
@@ -89,11 +101,11 @@ namespace HeistPart2 {
                             Name = newCrewMemberName
                             };
                             Console.WriteLine ("Enter crew member's skill level (1-100)");
-                            var newCrewMemberSkillLevel = Console.ReadLine ();
-                            newLockSpecialist.SkillLevel = int.Parse (newCrewMemberSkillLevel);
+                            newCrewMemberSkillLevel = int.Parse (Console.ReadLine ());
+                            newLockSpecialist.SkillLevel = newCrewMemberSkillLevel;
                             Console.WriteLine ("Enter crew member's percentage cut (1-100)");
-                            var newCrewMemberPercentageCut = Console.ReadLine ();
-                            newLockSpecialist.PercentageCut = int.Parse (newCrewMemberPercentageCut);
+                            newCrewMemberPercentageCut = double.Parse (Console.ReadLine ());
+                            newLockSpecialist.PercentageCut = newCrewMemberPercentageCut;
                             rolodex.Add (newLockSpecialist);
                             break;
 
