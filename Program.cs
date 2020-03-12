@@ -44,6 +44,9 @@ namespace HeistPart2 {
             rolodex.Add (mac);
             rolodex.Add (kevin);
 
+            int newCrewMemberSkillLevel;
+            double newCrewMemberPercentageCut;
+
             Console.WriteLine ($"Your crew has {rolodex.Count} members");
 
             while (true) {
@@ -62,12 +65,30 @@ namespace HeistPart2 {
                             Muscle newMuscle = new Muscle () {
                             Name = newCrewMemberName
                             };
-                            Console.WriteLine ("Enter crew member's skill level (1-100)");
-                            var newCrewMemberSkillLevel = Console.ReadLine ();
-                            newMuscle.SkillLevel = int.Parse (newCrewMemberSkillLevel);
-                            Console.WriteLine ("Enter crew member's percentage cut (1-100)");
-                            var newCrewMemberPercentageCut = Console.ReadLine ();
-                            newMuscle.PercentageCut = int.Parse (newCrewMemberPercentageCut);
+
+                            while (true) {
+                                Console.WriteLine ("Enter crew member's skill level (1-100)");
+                                try {
+
+                                    newCrewMemberSkillLevel = int.Parse (Console.ReadLine ());
+                                    break;
+                                } catch (System.FormatException) {
+                                    Console.WriteLine ("Please enter a number (1-100)");
+                                }
+                            };
+                            newMuscle.SkillLevel = newCrewMemberSkillLevel;
+
+                            while (true) {
+                                Console.WriteLine ("Enter crew member's percentage cut (1-100)");
+                                try {
+                                    newCrewMemberPercentageCut = double.Parse (Console.ReadLine ());
+                                    break;
+                                } catch {
+                                    Console.WriteLine ("Please enter a number (1-100)");
+                                }
+                            };
+                            newMuscle.PercentageCut = newCrewMemberPercentageCut;
+
                             rolodex.Add (newMuscle);
                             break;
 
@@ -75,12 +96,29 @@ namespace HeistPart2 {
                             Hacker newHacker = new Hacker () {
                             Name = newCrewMemberName
                             };
-                            Console.WriteLine ("Enter crew member's skill level (1-100)");
-                            var newCrewMemberSkillLevel = Console.ReadLine ();
-                            newHacker.SkillLevel = int.Parse (newCrewMemberSkillLevel);
-                            Console.WriteLine ("Enter crew member's percentage cut (1-100)");
-                            var newCrewMemberPercentageCut = Console.ReadLine ();
-                            newHacker.PercentageCut = int.Parse (newCrewMemberPercentageCut);
+                            while (true) {
+                                Console.WriteLine ("Enter crew member's skill level (1-100)");
+                                try {
+
+                                    newCrewMemberSkillLevel = int.Parse (Console.ReadLine ());
+                                    break;
+                                } catch (System.FormatException) {
+                                    Console.WriteLine ("Please enter a number (1-100)");
+                                }
+                            };
+                            newHacker.SkillLevel = newCrewMemberSkillLevel;
+
+                            while (true) {
+                                Console.WriteLine ("Enter crew member's percentage cut (1-100)");
+                                try {
+                                    newCrewMemberPercentageCut = double.Parse (Console.ReadLine ());
+                                    break;
+                                } catch {
+                                    Console.WriteLine ("Please enter a number (1-100)");
+                                }
+                            };
+                            newHacker.PercentageCut = newCrewMemberPercentageCut;
+
                             rolodex.Add (newHacker);
                             break;
 
@@ -88,12 +126,29 @@ namespace HeistPart2 {
                             LockSpecialist newLockSpecialist = new LockSpecialist () {
                             Name = newCrewMemberName
                             };
-                            Console.WriteLine ("Enter crew member's skill level (1-100)");
-                            var newCrewMemberSkillLevel = Console.ReadLine ();
-                            newLockSpecialist.SkillLevel = int.Parse (newCrewMemberSkillLevel);
-                            Console.WriteLine ("Enter crew member's percentage cut (1-100)");
-                            var newCrewMemberPercentageCut = Console.ReadLine ();
-                            newLockSpecialist.PercentageCut = int.Parse (newCrewMemberPercentageCut);
+                            while (true) {
+                                Console.WriteLine ("Enter crew member's skill level (1-100)");
+                                try {
+
+                                    newCrewMemberSkillLevel = int.Parse (Console.ReadLine ());
+                                    break;
+                                } catch (System.FormatException) {
+                                    Console.WriteLine ("Please enter a number (1-100)");
+                                }
+                            };
+                            newLockSpecialist.SkillLevel = newCrewMemberSkillLevel;
+
+                            while (true) {
+                                Console.WriteLine ("Enter crew member's percentage cut (1-100)");
+                                try {
+                                    newCrewMemberPercentageCut = double.Parse (Console.ReadLine ());
+                                    break;
+                                } catch {
+                                    Console.WriteLine ("Please enter a number (1-100)");
+                                }
+                            };
+                            newLockSpecialist.PercentageCut = newCrewMemberPercentageCut;
+
                             rolodex.Add (newLockSpecialist);
                             break;
 
@@ -140,13 +195,14 @@ namespace HeistPart2 {
             double totalCutPercentage = 100;
 
             while (true) {
-
+                string chosenMember;
                 Console.WriteLine ("Add member to crew?(Enter member #)");
-                var chosenMember = Console.ReadLine ();
+                chosenMember = Console.ReadLine ();
 
                 if (chosenMember == "") {
                     break;
                 } else {
+
                     foreach (var item in rolodex) {
                         if (int.Parse (chosenMember) == rolodex.IndexOf (item)) {
 
@@ -169,6 +225,8 @@ namespace HeistPart2 {
             foreach (var mem in crew) {
                 Console.WriteLine ($"{mem.ToString()}");
             }
+            Console.WriteLine ("It's time to heist!");
+            Console.WriteLine ("------------------------------");
 
             foreach (var crewMember in crew) {
                 crewMember.PerformSkill (targetBank);
@@ -179,10 +237,12 @@ namespace HeistPart2 {
                 Console.WriteLine ("You failed the heist.");
             } else {
                 Console.WriteLine ($"You did it!");
+                Console.WriteLine ($" ");
+
                 foreach (var member in crew) {
                     var yourTake = (member.PercentageCut / 100) * targetBank.CashOnHand;
                     allCuts += yourTake;
-                    Console.WriteLine ($"{member.Name}: your cut is ${yourTake.ToString("C")}.");
+                    Console.WriteLine ($"{member.Name}: Your cut is ${yourTake.ToString("C")}.");
                     Console.WriteLine ($"Remaining cut: {(targetBank.CashOnHand-allCuts).ToString("C")}");
                 }
                 Console.WriteLine ($"Leader's cut: {(targetBank.CashOnHand-allCuts).ToString("C")}");
